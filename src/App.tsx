@@ -92,7 +92,9 @@ function App() {
                     {shortenedUrls.slice().reverse().map((url, index) => {
                         return (
                             <Flex key={index} justifyContent={'space-between'} gap={4}>
-                                <Link target={'_blank'} fontSize={'sm'} color={'#5EB3E8'} textDecoration={'underline'} href={url}>{url}</Link>
+                                <Link target={'_blank'} fontSize={'sm'} color={'#5EB3E8'} textDecoration={'underline'} href={url}>
+                                    {url}
+                                </Link>
                                 <DeleteIcon cursor={'pointer'} color={'#5D5D5D'} onClick={() => deleteShortUrl(url)} />
                             </Flex>
                             )
@@ -113,7 +115,9 @@ function App() {
                         value={enteredUrl}
                         onChange={(e) => setEnteredUrl(e.target.value)}
                     />
-                    <Button width={'150px'} height={'50px'} borderRadius={0} bg={'#92278F'} color={'white'} onClick={(e) => shortenUrl(e)}>Shorten URL</Button>
+                    <Button width={'150px'} height={'50px'} borderRadius={0} bg={'#92278F'} color={'white'} onClick={(e) => shortenUrl(e)}>
+                        Shorten URL
+                    </Button>
                 </Flex>
             </Flex>
         </Flex>
