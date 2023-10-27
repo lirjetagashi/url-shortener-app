@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Flex, Heading, Image, Text, Input, Button, Link, useToast} from "@chakra-ui/react";
+import {DeleteIcon} from "@chakra-ui/icons";
+
+const SERVER_URL = 'http://localhost:5000'
 
 function App() {
   const [enteredUrl, setEnteredUrl] = useState<string>('')
@@ -8,7 +11,7 @@ function App() {
 
     const fetchUrls = async () => {
         try {
-            const response = await fetch('http://localhost:5000/', {
+            const response = await fetch(`${SERVER_URL}/`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,7 +32,7 @@ function App() {
   const shortenUrl = async (e: any) => {
       e.preventDefault();
       try {
-          const response = await fetch('http://localhost:5000/shortenUrl', {
+          const response = await fetch(`${SERVER_URL}/shortenUrl`, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -52,6 +55,29 @@ function App() {
       }
   }
 
+  const deleteShortUrl = async (shortLink: string) => {
+      try {
+          await fetch(`${shortLink}`, {
+              method: 'DELETE'
+          })
+          toast({
+              status: "success",
+              position: "top",
+              description: "Successfully deleted URL!",
+              duration: 2000
+          })
+          await fetchUrls()
+      } catch (e: any) {
+          console.error('Error deleting url', e)
+          toast({
+              status: "error",
+              position: "top",
+              description: `Error deleting URL - ${e.message}`,
+              duration: 2000
+          })
+      }
+  }
+
   useEffect(() => {
       fetchUrls()
   }, [])
@@ -59,12 +85,17 @@ function App() {
   return (
     <>
         <Flex height={'100vh'}>
-            <Flex width={'20%'} height={'100%'} backgroundColor={'#EFEFEF'} alignItems={'center'} flexDirection={'column'}>
+            <Flex width={'22%'} height={'100%'} backgroundColor={'#EFEFEF'} alignItems={'center'} flexDirection={'column'}>
                 <Image src={'/AnchorzUp-logo.svg'} width={'150px'} height={'150px'} />
                 <Flex flexDirection={'column'} gap={4}>
-                    <Text fontWeight={'bold'} fontSize={'lg'}>My shortened URLs</Text>
-                    {shortenedUrls.map((url, index) => {
-                        return <Link key={index} target={'_blank'} fontSize={'sm'} color={'#5EB3E8'} textDecoration={'underline'} href={url}>{url}</Link>
+                    <Text fontWeight={'bold'} fontSize={'lg'} align={'center'}>My shortened URLs</Text>
+                    {shortenedUrls.slice().reverse().map((url, index) => {
+                        return (
+                            <Flex key={index} justifyContent={'space-between'} gap={4}>
+                                <Link target={'_blank'} fontSize={'sm'} color={'#5EB3E8'} textDecoration={'underline'} href={url}>{url}</Link>
+                                <DeleteIcon cursor={'pointer'} color={'#5D5D5D'} onClick={() => deleteShortUrl(url)} />
+                            </Flex>
+                            )
                     })}
                 </Flex>
             </Flex>
@@ -72,6 +103,7 @@ function App() {
                 <Heading>URL Shortener</Heading>
                 <Flex flexDirection={'column'} gap={8}>
                     <Input
+                        name={'Url'}
                         placeholder={'Paste the URL to be shortened'}
                         width={'md'}
                         height={'50px'}
