@@ -3,6 +3,17 @@
 This is a full-stack web application project that consists of a React front-end and a Node.js back-end using Express.js
 and MongoDB. Before you begin, make sure you have Node.js, MongoDB, and npm installed on your machine.
 
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/lirjetagashi/url-shortener-app.git
+
+2. Install the project dependencies:
+
+   npm install
+   
 ## Backend setup
 
 Make sure MongoDB is installed and running on your machine.
@@ -10,7 +21,7 @@ To start the Node.js backend server, open a terminal and run:
 
 ### `npm run backend`
 
-This command will navigate to the /server directory and start the Node.js server using the script defined in the package.json.\
+This command will navigate to the /server directory and start the Node.js server using the script defined in the package.json.
 
 ## Frontend setup
 
@@ -25,20 +36,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The front-end will be available at http://localhost:3000. You can access the application in your web browser.
 
 ## Project Structure
-/server: Contains the Node.js Express.js server code.
+/server: Contains the Node.js Express.js server code.\
 /src: Contains the React front-end code.
 
 ## Dependencies
 This project uses the following technologies and packages:
 
 ## Front-end:
-React
-TypeScript
+React\
+TypeScript\
 ChakraUI
 
 ## Back-end:
-Node.js
-Express.js
+Node.js\
+Express.js\
 MongoDB
 
 ## Contact
